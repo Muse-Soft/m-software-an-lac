@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Lạc — Nhà hàng chay</title>
+<meta name="description" content="An Lạc — ăn chay thanh tịnh giữa vườn thiền, thực đơn theo mùa. Bản demo: ảnh mẫu, giá mẫu, thông tin thật đang chờ bổ sung.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Be+Vietnam+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#FBF8F1; --bg2:#EDE5D3; --ink:#23402E; --muted:#6A7B6E;
+    --gold:#C08A2D; --leaf:#7D9B76;
+  }
+  body{font-family:"Be Vietnam Pro",sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.7}
+  h1,h2,h3{font-family:"Lora",serif;line-height:1.2}
+  a{color:var(--ink)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  /* Header */
+  header{position:fixed;top:0;left:0;right:0;z-index:10;background:rgba(251,248,241,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--bg2)}
+  header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:14px;padding-bottom:14px}
+  .logo{font-family:"Lora",serif;font-size:26px;font-weight:700;text-decoration:none}
+  .logo span{color:var(--gold)}
+  .nav-cta{background:var(--gold);color:#FBF8F1;text-decoration:none;padding:10px 22px;border-radius:999px;font-weight:700;font-size:15px}
+  .nav-cta:hover{filter:brightness(1.05)}
+  /* Hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:flex-end;color:#FBF8F1;overflow:hidden}
+  .hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(35,64,46,.78) 0%,rgba(35,64,46,.25) 55%,rgba(35,64,46,.15) 100%)}
+  .hero .wrap{position:relative;z-index:2;padding-bottom:72px;padding-top:160px;width:100%}
+  .eyebrow{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#EDE5D3;margin-bottom:18px}
+  .hero h1{font-size:64px;line-height:1.1;max-width:640px}
+  .hero p.lead{font-size:19px;max-width:560px;margin:20px 0 28px;color:#FBF8F1}
+  .btn{display:inline-block;background:var(--gold);color:#FBF8F1;text-decoration:none;padding:14px 30px;border-radius:999px;font-weight:700;font-size:16px;border:none;cursor:pointer}
+  .btn:hover{filter:brightness(1.05)}
+  .hero-meta{margin-top:26px;font-size:14px;color:#EDE5D3}
+  /* Sections */
+  section.block{padding:96px 0}
+  section.block h2{font-size:40px;line-height:1.2;margin-bottom:32px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .split.reverse .txt{order:2}
+  .split.reverse .pic{order:1}
+  .txt p{margin-bottom:16px}
+  .txt p:last-child{margin-bottom:0}
+  .note{color:var(--muted);font-size:14px}
+  /* Arch frame */
+  .arch{border:3px solid var(--leaf);border-radius:999px 999px 0 0;overflow:hidden;background:var(--leaf);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;color:var(--ink);font-weight:700;text-align:center}
+  .arch img{width:100%;height:100%;object-fit:cover;display:block}
+  /* Menu */
+  .menu-intro{max-width:720px;margin-bottom:48px}
+  .menu-group{margin-bottom:72px}
+  .menu-group:last-child{margin-bottom:0}
+  .season{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+  .season-badge{width:72px;height:72px;flex:0 0 72px;border-radius:50%;background:var(--gold);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;line-height:1.2}
+  .season-badge .leaf{font-size:20px}
+  .season-badge .name{font-size:13px}
+  .season h3{font-size:24px}
+  .menu-pic{border:3px solid var(--leaf);border-radius:12px;overflow:hidden;background:var(--leaf);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;color:var(--ink);font-weight:700;text-align:center}
+  .menu-pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .menu-group.main .menu-pic{min-height:420px}
+  .dish{padding:18px 0;border-bottom:1px solid var(--bg2)}
+  .dish:first-child{padding-top:0}
+  .dish:last-child{border-bottom:none}
+  .dish-head{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .dish-head h4{font-family:"Lora",serif;font-size:20px;line-height:1.3}
+  .price{color:var(--gold);font-weight:700;white-space:nowrap}
+  .dish p{color:var(--muted);font-size:15px;margin-top:4px}
+  .menu-note{margin-top:32px}
+  .text-link{color:var(--gold);font-weight:700}
+  /* Garden */
+  .garden-imgs{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .garden-imgs .arch{aspect-ratio:4/5}
+  /* Testimonials */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+  .quote .mark{font-family:"Lora",serif;font-size:72px;line-height:.7;color:var(--gold);display:block;margin-bottom:16px}
+  .quote p{font-size:17px}
+  .quote .who{margin-top:16px;color:var(--muted);font-size:14px}
+  /* Form */
+  .form-block{background:var(--bg2);border-radius:12px;padding:48px}
+  .form-block h2{margin-bottom:12px}
+  .form-block .intro{margin-bottom:28px;color:var(--muted)}
+  form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  form .full{grid-column:1/-1}
+  label{display:block;font-size:14px;font-weight:700;margin-bottom:6px}
+  input,textarea{width:100%;padding:13px 16px;border:1px solid #EDE5D3;border-radius:12px;background:#FBF8F1;font-family:"Be Vietnam Pro",sans-serif;font-size:16px;color:var(--ink)}
+  input::placeholder,textarea::placeholder{color:var(--muted)}
+  textarea{resize:vertical;min-height:110px}
+  #thanks{display:none;margin-top:20px;background:var(--leaf);color:#FBF8F1;padding:16px 20px;border-radius:12px;font-weight:700}
+  /* Footer */
+  footer{background:var(--ink);color:#FBF8F1;padding:56px 0 40px;margin-top:0}
+  footer h3{font-size:28px;margin-bottom:20px}
+  footer p{color:#EDE5D3;font-size:15px;line-height:2}
+  footer .small{margin-top:28px;color:#EDE5D3;font-size:13px}
+  @media (max-width:768px){
+    body{font-size:16px}
+    .wrap{padding:0 16px}
+    .hero h1{font-size:40px;line-height:1.15}
+    section.block{padding:56px 0}
+    section.block h2{font-size:30px;line-height:1.25;margin-bottom:24px}
+    .split{grid-template-columns:1fr;gap:28px}
+    .split.reverse .txt,.split.reverse .pic{order:initial}
+    .split .pic{order:-1}
+    .season-badge{width:56px;height:56px;flex-basis:56px}
+    .season-badge .name{font-size:11px}
+    .garden-imgs{grid-template-columns:1fr}
+    .quotes{grid-template-columns:1fr}
+    .form-block{padding:28px 20px}
+    form{grid-template-columns:1fr}
+    .hero .wrap{padding-bottom:48px}
+    .logo{font-size:22px}
+    .nav-cta{padding:8px 16px;font-size:14px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">An Lạc<span>.</span></a>
+    <a class="nav-cta" href="#dat-ban">Đặt bàn</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="bg" src="https://images.unsplash.com/photo-1540189549336-e6e99cdbdf8d?auto=format&fit=crop&w=1600&q=80" alt="Mâm chay đầy đặn nhìn từ trên xuống giữa vườn xanh (ảnh mẫu)">
+  <div class="wrap">
+    <p class="eyebrow">Nhà hàng chay — [CẦN BỔ SUNG: khu vực/thành phố]</p>
+    <h1>An Lạc</h1>
+    <p class="lead">Ăn chay thanh tịnh giữa vườn thiền — rau tươi từ vườn, nêm nhẹ để giữ vị gốc, ăn chậm theo mùa.</p>
+    <a class="btn" href="#thuc-don">Xem thực đơn theo mùa</a>
+    <p class="hero-meta">Địa chỉ: [CẦN BỔ SUNG] &nbsp;·&nbsp; Điện thoại: [CẦN BỔ SUNG]</p>
+  </div>
+</section>
+
+<!-- KHỐI 1: TRIẾT LÝ -->
+<section class="block">
+  <div class="wrap split">
+    <div class="txt">
+      <h2>Ăn chay là ăn chậm, ăn đủ, ăn theo mùa</h2>
+      <p>Ở An Lạc, mỗi bữa ăn bắt đầu từ vườn: rau hái trong ngày, đậu và nấm tươi, gia vị nêm nhẹ để vị gốc của rau củ được lên tiếng. Chúng tôi không chạy theo món cầu kỳ — chỉ cần đủ tươi, đủ lành, đủ ngon.</p>
+      <p>Thực đơn đổi theo mùa, vì rau ngon nhất khi đúng mùa của nó. Mùa nào thức nấy: món ăn vì thế luôn mới, mà vẫn quen thuộc như một bữa cơm nhà.</p>
+      <p class="note">Toàn bộ ảnh trên trang là ảnh mẫu — chưa phải ảnh thật của nhà hàng.</p>
+    </div>
+    <div class="pic">
+      <div class="arch"><img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=900&q=80" alt="Góc vườn thiền có đá, rêu và cây xanh (ảnh mẫu)"></div>
+    </div>
+  </div>
+</section>
+
+<!-- KHỐI 2: THỰC ĐƠN -->
+<section class="block" id="thuc-don" style="padding-top:0">
+  <div class="wrap">
+    <h2>Thực đơn theo mùa</h2>
+    <p class="menu-intro">Thực đơn đổi theo mùa; các món dưới đây là thực đơn mùa hiện tại (mùa là mẫu, chưa phải thực đơn thật). Toàn bộ giá dưới đây là <strong>giá mẫu</strong> — giá thật sẽ cập nhật khi có thông tin thật.</p>
+
+    <!-- Khai vị -->
+    <div class="menu-group">
+      <div class="season">
+        <div class="season-badge"><span class="leaf">🍃</span><span class="name">Mùa Thu</span></div>
+        <h3>Khai vị</h3>
+      </div>
+      <div class="split">
+        <div class="menu-pic"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80" alt="Gỏi cuốn chay và salad khai vị (ảnh mẫu)"></div>
+        <div>
+          <div class="dish"><div class="dish-head"><h4>Gỏi cuốn nấm hương</h4><span class="price">55.000đ · Giá mẫu</span></div><p>Nấm hương, bún tươi, rau thơm cuốn lá, chấm tương đậu phộng béo nhẹ.</p></div>
+          <div class="dish"><div class="dish-head"><h4>Salad vườn An Lạc</h4><span class="price">65.000đ · Giá mẫu</span></div><p>Rau vườn trộn dầu mè, hạt điều rang, cà rốt bào sợi giòn mát.</p></div>
+          <div class="dish"><div class="dish-head"><h4>Chả giò rau củ</h4><span class="price">45.000đ · Giá mẫu</span></div><p>Vỏ giòn, nhân khoai môn và nấm mèo, ăn kèm rau sống.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Món chính -->
+    <div class="menu-group main">
+      <div class="season">
+        <div class="season-badge"><span class="leaf">🍃</span><span class="name">Mùa Thu</span></div>
+        <h3>Món chính</h3>
+      </div>
+      <div class="split reverse">
+        <div>
+          <div class="dish"><div class="dish-head"><h4>Cơm sen lá sen</h4><span class="price">120.000đ · Giá mẫu</span></div><p>Cơm hấp hạt sen, nấm và rau củ gói trong lá sen thơm dịu.</p></div>
+          <div class="dish"><div class="dish-head"><h4>Đậu hũ sốt nấm đông cô</h4><span class="price">95.000đ · Giá mẫu</span></div><p>Đậu hũ non chiên vàng nhẹ, sốt nấm đông cô đậm vị mà thanh.</p></div>
+          <div class="dish"><div class="dish-head"><h4>Lẩu nấm vườn thiền</h4><span class="price">110.000đ · Giá mẫu</span></div><p>Nước dùng rau củ ninh chậm, đủ loại nấm tươi và rau theo mùa.</p></div>
+          <div class="dish"><div class="dish-head"><h4>Bún riêu chay</h4><span class="price">85.000đ · Giá mẫu</span></div><p>Nước dùng cà chua và đậu nành, ăn kèm rau muống chẻ giòn.</p></div>
+        </div>
+        <div class="menu-pic"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80" alt="Mâm chay chính đầy đặn (ảnh mẫu)"></div>
+      </div>
+    </div>
+
+    <!-- Tráng miệng -->
+    <div class="menu-group">
+      <div class="season">
+        <div class="season-badge"><span class="leaf">🍃</span><span class="name">Mùa Thu</span></div>
+        <h3>Tráng miệng</h3>
+      </div>
+      <div class="split">
+        <div class="menu-pic"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=1200&q=80" alt="Tráng miệng chay nhẹ nhàng (ảnh mẫu)"></div>
+        <div>
+          <div class="dish"><div class="dish-head"><h4>Chè hạt sen long nhãn</h4><span class="price">45.000đ · Giá mẫu</span></div><p>Ngọt thanh, hạt sen bở mềm, nhãn tươi thơm nhẹ.</p></div>
+          <div class="dish"><div class="dish-head"><h4>Bánh flan đậu nành</h4><span class="price">35.000đ · Giá mẫu</span></div><p>Mềm mịn, béo nhẹ từ sữa đậu nành, không trứng sữa động vật.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="menu-note note">Toàn bộ giá trên là giá mẫu, giá thật ghi ở đây sau khi có thông tin thật. <a class="text-link" href="#dat-ban">Đặt bàn để thưởng thức →</a></p>
+  </div>
+</section>
+
+<!-- KHỐI 3: KHÔNG GIAN -->
+<section class="block" style="padding-top:0">
+  <div class="wrap split">
+    <div class="pic">
+      <div class="garden-imgs">
+        <div class="arch"><img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=900&q=80" alt="Lối đi sỏi trong vườn thiền (ảnh mẫu)"></div>
+        <div class="arch"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=900&q=80" alt="Góc phòng ăn nhìn ra vườn (ảnh mẫu)"></div>
+      </div>
+    </div>
+    <div class="txt">
+      <h2>Không gian vườn thiền</h2>
+      <p>Sân vườn rêu đá, lối đi sỏi quanh co, phòng ăn mở ra vườn — ngồi đâu cũng thấy xanh. Sau bữa ăn, khách có thể nán lại góc thiền, uống một ấm trà nóng rồi mới về.</p>
+      <p>Không ồn ào, không vội vàng. An Lạc giữ nhịp chậm để bữa ăn cũng là một lần nghỉ ngơi.</p>
+    </div>
+  </div>
+</section>
+
+<!-- KHỐI 4: CẢM NHẬN -->
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <h2>Cảm nhận khách hàng</h2>
+    <div class="quotes">
+      <div class="quote"><span class="mark">“</span><p>Ăn xong mà người nhẹ hẳn. Món thanh, không gian yên, ngồi thêm nửa tiếng uống trà vẫn không muốn về.</p><p class="who">— [CẦN BỔ SUNG]</p></div>
+      <div class="quote"><span class="mark">“</span><p>Lẩu nấm ở đây là món mình nhớ nhất. Nước dùng ngọt tự nhiên, rau tươi đúng kiểu vừa hái từ vườn.</p><p class="who">— [CẦN BỔ SUNG]</p></div>
+      <div class="quote"><span class="mark">“</span><p>Dẫn ba mẹ tới một lần rồi thành chỗ quen của cả nhà mỗi cuối tuần. Người lớn tuổi ăn chay rất hợp.</p><p class="who">— [CẦN BỔ SUNG]</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- KHỐI 5: FORM ĐẶT BÀN -->
+<section class="block" id="dat-ban" style="padding-top:0">
+  <div class="wrap">
+    <div class="form-block">
+      <h2>Đặt bàn</h2>
+      <p class="intro">Form dưới đây chỉ là giao diện mẫu — bấm gửi chỉ hiện lời cảm ơn tại chỗ, không gửi đi thật, không thu thập dữ liệu thật.</p>
+      <form id="booking-form">
+        <div><label for="name">Họ tên</label><input id="name" type="text" placeholder="Họ tên của bạn"></div>
+        <div><label for="phone">Số điện thoại</label><input id="phone" type="tel" placeholder="Số điện thoại"></div>
+        <div><label for="date">Ngày mong muốn</label><input id="date" type="date"></div>
+        <div><label for="guests">Số người</label><input id="guests" type="number" min="1" placeholder="Ví dụ: 4"></div>
+        <div class="full"><label for="note">Ghi chú</label><textarea id="note" placeholder="Ví dụ: muốn ngồi gần vườn, ăn chay trường…"></textarea></div>
+        <div class="full"><button class="btn" type="submit">Gửi yêu cầu đặt bàn</button></div>
+      </form>
+      <div id="thanks">Cảm ơn bạn! Đây là giao diện mẫu — yêu cầu chưa được gửi đi thật. Nhà hàng sẽ liên hệ khi form chính thức hoạt động.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>An Lạc — Nhà hàng chay</h3>
+    <p>Địa chỉ: [CẦN BỔ SUNG]<br>
+    Điện thoại: [CẦN BỔ SUNG]<br>
+    Giờ mở cửa: [CẦN BỔ SUNG]<br>
+    Người phụ trách: [CẦN BỔ SUNG]</p>
+    <p class="small">Bản demo: toàn bộ ảnh là ảnh mẫu, giá món là giá mẫu, thông tin liên hệ đang chờ bổ sung. Form đặt bàn chỉ là giao diện, chưa gửi thật.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('booking-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('thanks').style.display = 'block';
+  });
+</script>
+</body>
+</html>
